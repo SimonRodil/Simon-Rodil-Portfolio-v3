@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scale-hover:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        #home {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                            url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+        .input-with-icon input {
+            padding-left: 40px;
+        }
+        .skill-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: #1f2937;
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+        .skill-item i {
+            font-size: 2.5rem;
+            margin-right: 1.5rem;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        .skill-item span {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #d1d5db;
+            transition: color 0.3s ease;
+        }
+        .skill-item:hover .fa-html5 { color: #e34f26; }
+        .skill-item:hover .fa-css3-alt { color: #1572b6; }
+        .skill-item:hover .fa-js { color: #f7df1e; }
+        .skill-item:hover .fa-wind { color: #06b6d4; }
+        .skill-item:hover .fa-php { color: #777bb4; }
+        .skill-item:hover .fa-database { color: #00758f; }
+        .skill-item:hover .fa-laravel { color: #ff2d20; }
+        .skill-item:hover .fa-wordpress { color: #21759b; }
+        .skill-item:hover .fa-shopify { color: #96bf48; }
+        .skill-item:hover .fa-bootstrap { color: #7952b3; }
+        .skill-item:hover[data-skill="html"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="html"] span { color: #e34f26; }
+        .skill-item:hover[data-skill="css"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="css"] span { color: #1572b6; }
+        .skill-item:hover[data-skill="js"] { background-color: #000000; }
+        .skill-item:hover[data-skill="js"] span { color: #f7df1e; }
+        .skill-item:hover[data-skill="tailwind"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="tailwind"] span { color: #06b6d4; }
+        .skill-item:hover[data-skill="php"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="php"] span { color: #777bb4; }
+        .skill-item:hover[data-skill="sql"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="sql"] span { color: #00758f; }
+        .skill-item:hover[data-skill="laravel"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="laravel"] span { color: #ff2d20; }
+        .skill-item:hover[data-skill="wordpress"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="wordpress"] span { color: #21759b; }
+        .skill-item:hover[data-skill="shopify"] { background-color: #000000; }
+        .skill-item:hover[data-skill="shopify"] span { color: #96bf48; }
+        .skill-item:hover[data-skill="bootstrap"] { background-color: #ffffff; }
+        .skill-item:hover[data-skill="bootstrap"] span { color: #7952b3; }
+        .first-paragraph::first-letter {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            float: left;
+            margin-right: 0.5rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-gray-900 shadow-lg z-10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-white">Simon</h1>
+            <div class="space-x-6">
+                <a href="#home" class="hover:text-gray-300 transition-colors">Home</a>
+                <a href="#about" class="hover:text-gray-300 transition-colors">About</a>
+                <a href="#projects" class="hover:text-gray-300 transition-colors">Projects</a>
+                <a href="#contact" class="hover:text-gray-300 transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-16">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center fade-in">
+            <div class="md:w-1/2 text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+                    <span id="hello">Hello</span>, <span id="im">I'm</span> <span id="simon">Simon</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-6"><i class="fas fa-laptop-code mr-2"></i>Web Developer & Designer</p>
+                <button class="bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover">
+                    View My Work
+                </button>
+            </div>
+            <div class="md:w-1/2 mt-8 md:mt-0">
+                <div class="w-64 h-64 mx-auto bg-gradient-to-br from-gray-800 to-gray-600 rounded-full scale-hover border-2 border-gray-800 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4 fade-in">
+            <h2 class="text-3xl font-bold text-center mb-12 text-white">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <p class="text-gray-300 leading-relaxed first-paragraph">
+                        I'm a dedicated professional with a degree in Informatics Engineering. My passion lies in crafting innovative digital solutions, and I bring a wealth of experience across multiple domains of technology.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        My background spans web development, email development, database development, and domain & hosting setup. I thrive on turning complex challenges into seamless, user-friendly experiences.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        I also work as an email developer, creating responsive and customized templates for email campaigns. I’ve built effective solutions for various platforms, including Klaviyo, Braze, and Iterable, ensuring optimal delivery and engagement.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        I’m proficient in a variety of programming languages, including HTML, CSS, JavaScript, Liquid, PHP, Blade, and SQL. On the frontend, I leverage frameworks and libraries like jQuery, Bootstrap, and Materialize to create responsive and dynamic interfaces.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        In the backend realm, I work with PHP, Laravel, and SQL to build robust and scalable systems. Additionally, I have extensive experience with CMS platforms such as WordPress and Shopify, enabling me to deliver tailored solutions for diverse needs.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        As a plus, I handle design tools like Photoshop and Figma with a solid understanding. These skills enhance my ability to create visually appealing and well-structured designs that complement my development work.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Beyond technical skills, I’m multilingual and fluent in Spanish, English, and French. This allows me to collaborate effectively with international teams and clients, bringing a global perspective to my work.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-8 text-white">Skills</h3>
+                    <div class="space-y-10">
+                        <div>
+                            <h4 class="text-2xl font-semibold text-gray-300 mb-6">Frontend</h4>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="skill-item" data-skill="html">
+                                    <i class="fab fa-html5"></i>
+                                    <span>HTML</span>
+                                </div>
+                                <div class="skill-item" data-skill="css">
+                                    <i class="fab fa-css3-alt"></i>
+                                    <span>CSS</span>
+                                </div>
+                                <div class="skill-item" data-skill="js">
+                                    <i class="fab fa-js"></i>
+                                    <span>JavaScript</span>
+                                </div>
+                                <div class="skill-item" data-skill="tailwind">
+                                    <i class="fas fa-wind"></i>
+                                    <span>Tailwind CSS</span>
+                                </div>
+                                <div class="skill-item col-span-2" data-skill="bootstrap">
+                                    <i class="fab fa-bootstrap"></i>
+                                    <span>Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-semibold text-gray-300 mb-6">Backend</h4>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="skill-item" data-skill="php">
+                                    <i class="fab fa-php"></i>
+                                    <span>PHP</span>
+                                </div>
+                                <div class="skill-item" data-skill="sql">
+                                    <i class="fas fa-database"></i>
+                                    <span>SQL</span>
+                                </div>
+                                <div class="skill-item" data-skill="laravel">
+                                    <i class="fab fa-laravel"></i>
+                                    <span>Laravel</span>
+                                </div>
+                                <div class="skill-item" data-skill="wordpress">
+                                    <i class="fab fa-wordpress"></i>
+                                    <span>WordPress</span>
+                                </div>
+                                <div class="skill-item col-span-2" data-skill="shopify">
+                                    <i class="fab fa-shopify"></i>
+                                    <span>Shopify</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-950">
+        <div class="max-w-6xl mx-auto px-4 fade-in">
+            <h2 class="text-3xl font-bold text-center mb-12 text-white">Projects</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover">
+                    <div class="h-48 bg-gray-800"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-white">Project One</h3>
+                        <p class="text-gray-400 mb-4">A brief description of your project goes here.</p>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fas fa-eye mr-2"></i>View Project</a>
+                    </div>
+                </div>
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover">
+                    <div class="h-48 bg-gray-800"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-white">Project Two</h3>
+                        <p class="text-gray-400 mb-4">A brief description of your project goes here.</p>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fas fa-eye mr-2"></i>View Project</a>
+                    </div>
+                </div>
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover">
+                    <div class="h-48 bg-gray-800"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-white">Project Three</h3>
+                        <p class="text-gray-400 mb-4">A brief description of your project goes here.</p>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fas fa-eye mr-2"></i>View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4 fade-in">
+            <h2 class="text-3xl font-bold text-center mb-6 text-white">Get in Touch</h2>
+            <p class="text-gray-300 text-center mb-12 max-w-2xl mx-auto">
+                I’d love to hear from you! Whether you have a project in mind, a question, or just want to connect, feel free to fill out the form below or follow me on my socials: 
+                <a href="https://instagram.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">Instagram</a>, 
+                <a href="https://facebook.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">Facebook</a>, 
+                <a href="https://github.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">GitHub</a>, or 
+                <a href="https://linkedin.com/in/simonrodil" target="_blank" class="text-gray-200 hover:text-white">LinkedIn</a>.
+            </p>
+            <form class="max-w-lg mx-auto">
+                <div class="mb-6 input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Name" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+                </div>
+                <div class="mb-6 input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+                </div>
+                <div class="mb-6">
+                    <textarea placeholder="Message" rows="4" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover">
+                    <i class="fas fa-paper-plane mr-2"></i>Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 py-6">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-400 fade-in">
+            <p>© 2025 Simon. All rights reserved.</p>
+            <div class="mt-2 space-x-6">
+                <a href="https://instagram.com/simonrodil" target="_blank" class="hover:text-white scale-hover"><i class="fab fa-instagram"></i></a>
+                <a href="https://facebook.com/simonrodil" target="_blank" class="hover:text-white scale-hover"><i class="fab fa-facebook"></i></a>
+                <a href="https://github.com/simonrodil" target="_blank" class="hover:text-white scale-hover"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/simonrodil" target="_blank" class="hover:text-white scale-hover"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations for "Hello, I'm Simon"
+        gsap.from("#hello", { 
+            opacity: 0, 
+            y: -50, 
+            duration: 1, 
+            ease: "power2.out" 
+        });
+        gsap.from("#im", { 
+            opacity: 0, 
+            y: -50, 
+            duration: 1, 
+            delay: 0.3, 
+            ease: "power2.out" 
+        });
+        gsap.from("#simon", { 
+            opacity: 0, 
+            y: -50, 
+            duration: 1, 
+            delay: 0.6, 
+            ease: "power2.out",
+            onComplete: () => {
+                gsap.to("#simon", { 
+                    scale: 1.1, 
+                    duration: 0.5, 
+                    yoyo: true, 
+                    repeat: 1,
+                    ease: "power1.inOut" 
+                });
+            }
+        });
+
+        // Existing Fade-in Observer
+        const elements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        elements.forEach(element => observer.observe(element));
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
