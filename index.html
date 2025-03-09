@@ -87,7 +87,7 @@
         .skill-item {
             display: flex;
             align-items: center;
-            padding: 1.25rem; /* Reduced from 1.5rem (~24px) to ~20px (3px less) */
+            padding: 1.25rem;
             background: #1f2937;
             border-radius: 0.75rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -103,14 +103,14 @@
             transition: color 0.3s ease;
         }
         .skill-item span {
-            font-size: 1.25rem; /* Default for mobile */
+            font-size: 1.25rem;
             font-weight: 600;
             color: #d1d5db;
             transition: color 0.3s ease;
         }
         @media (min-width: 768px) {
             .skill-item span {
-                font-size: 1.4375rem; /* 1.25rem (20px) + 3px = ~23px */
+                font-size: 1.4375rem;
             }
         }
         .skill-item:hover .fa-html5 { color: #e34f26; }
@@ -292,6 +292,7 @@
             flex: 1;
             background: url('https://via.placeholder.com/450x300') no-repeat center center;
             background-size: cover;
+            min-height: 200px;
         }
         .modal-text {
             flex: 1;
@@ -451,6 +452,44 @@
         .navbar-name:hover {
             color: #54b3d6;
             transform: scale(1.05) rotate(2deg);
+        }
+        /* Mobile-Specific Styles */
+        @media (max-width: 767px) {
+            /* Section Backgrounds */
+            #about, #projects, #testimonials, #contact, footer {
+                background: #02010f;
+            }
+            #about::before, #projects::before, #testimonials::before, #contact::before, footer::before {
+                background: radial-gradient(circle, rgba(2, 1, 23, 0.6), transparent);
+            }
+            #about::after, #projects::after, #testimonials::after, #contact::after, footer::after {
+                background: radial-gradient(circle, rgba(3, 2, 23, 0.5), transparent);
+            }
+            #about .bubble-extra, #projects .bubble-extra, #testimonials .bubble-extra, #contact .bubble-extra, footer .bubble-extra {
+                background: radial-gradient(circle, rgba(6, 5, 36, 0.45), transparent);
+            }
+            /* Modal Stacking */
+            .modal-content {
+                flex-direction: column;
+            }
+            .modal-image {
+                flex: none;
+                width: 100%;
+                height: 200px;
+            }
+            .modal-text {
+                flex: none;
+                width: 100%;
+            }
+            /* Hero Background Fix */
+            #home {
+                background-attachment: scroll; /* Prevents fixed background issues on mobile */
+            }
+            /* Profile Picture Size */
+            #home img {
+                width: 224px; /* 256px - 30px = 226px, adjusted to 224px for evenness */
+                height: 224px;
+            }
         }
     </style>
 </head>
