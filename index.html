@@ -87,7 +87,7 @@
         .skill-item {
             display: flex;
             align-items: center;
-            padding: 1.5rem;
+            padding: 1.25rem; /* Reduced from 1.5rem (~24px) to ~20px (3px less) */
             background: #1f2937;
             border-radius: 0.75rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -103,10 +103,15 @@
             transition: color 0.3s ease;
         }
         .skill-item span {
-            font-size: 1.25rem;
+            font-size: 1.25rem; /* Default for mobile */
             font-weight: 600;
             color: #d1d5db;
             transition: color 0.3s ease;
+        }
+        @media (min-width: 768px) {
+            .skill-item span {
+                font-size: 1.4375rem; /* 1.25rem (20px) + 3px = ~23px */
+            }
         }
         .skill-item:hover .fa-html5 { color: #e34f26; }
         .skill-item:hover .fa-css3-alt { color: #1572b6; }
@@ -184,7 +189,6 @@
                 transform: none;
             }
         }
-        /* Desktop-Only Menu Hover Effect */
         @media (min-width: 768px) {
             .nav-link {
                 overflow: hidden;
@@ -232,12 +236,11 @@
                 transform: translate3d(-200%, 0, 0);
             }
         }
-        /* CTA Styling */
         .next-section-link {
             position: relative;
             display: inline-block;
             color: #d1d5db;
-            font-weight: 600; /* Updated to 600 */
+            font-weight: 600;
             transition: color 0.3s ease;
         }
         .next-section-link::after {
@@ -256,11 +259,13 @@
         .next-section-link:hover {
             color: #ffffff;
         }
-        /* Section Title Sizes (Desktop Only) */
         @media (min-width: 768px) {
             #about h2, #projects h2, #testimonials h2, #contact h2 {
-                font-size: 2.125rem; /* Default 1.875rem (30px) + 4px = ~34px */
+                font-size: 2.125rem;
             }
+        }
+        .section-title {
+            cursor: pointer;
         }
         .modal {
             display: none;
@@ -439,7 +444,6 @@
         .social-link.facebook:hover::before { background: #1877f2; }
         .social-link.github:hover::before { background: #9146ff; }
         .social-link.linkedin:hover::before { background: #0a66c2; }
-        /* Navbar Name Hover */
         .navbar-name {
             cursor: pointer;
             transition: all 0.3s ease;
@@ -478,7 +482,7 @@
                 <p class="text-xl text-gray-300 mb-6"><i class="fas fa-laptop-code mr-2"></i>Web Developer & Designer</p>
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0">
-                <img src="https://media.licdn.com/dms/image/v2/C4E03AQE5R1fDZ8H_PA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1620189358986?e=1746662400&v=beta&t=oMP7kUP1grHDTRlOVI7HR6XAhFt4VRATSLeQQQ5RXIA" 
+                <img src="images/picture.jpeg" 
                      alt="Simon Rodil" 
                      class="w-64 h-64 mx-auto rounded-full scale-hover border-2 border-gray-800 object-cover">
             </div>
@@ -491,7 +495,7 @@
     <!-- About Section -->
     <section id="about" class="py-24 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
-            <h2 class="text-3xl font-bold text-center mb-12 text-white">About Me</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-white section-title" data-section="#about">About Me</h2>
             <div class="grid md:grid-cols-2 gap-12">
                 <div class="space-y-6">
                     <p class="text-gray-300 leading-relaxed first-paragraph">
@@ -573,7 +577,7 @@
                 </div>
             </div>
             <div class="text-center mt-12">
-                <a href="#projects" class="next-section-link text-lg">I want to know more</a>
+                <a href="#projects" class="next-section-link text-lg">Explore my creations?</a>
             </div>
         </div>
         <div class="bubble-extra"></div>
@@ -582,7 +586,7 @@
     <!-- Projects Section -->
     <section id="projects" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
-            <h2 class="text-3xl font-bold text-center mb-12 text-white">Projects</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-white section-title" data-section="#projects">Projects</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover">
                     <div class="h-48 bg-gray-800"></div>
@@ -610,7 +614,7 @@
                 </div>
             </div>
             <div class="text-center mt-12">
-                <a href="#testimonials" class="next-section-link text-lg">I want to know more</a>
+                <a href="#testimonials" class="next-section-link text-lg">Hear what others think?</a>
             </div>
         </div>
         <div class="bubble-extra"></div>
@@ -619,7 +623,7 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
-            <h2 class="text-3xl font-bold text-center mb-12 text-white">Testimonials</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-white section-title" data-section="#testimonials">Testimonials</h2>
             <div class="space-y-8">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
@@ -683,7 +687,7 @@
                 </div>
             </div>
             <div class="text-center mt-12">
-                <a href="#contact" class="next-section-link text-lg">I want to know more</a>
+                <a href="#contact" class="next-section-link text-lg">Ready to collaborate?</a>
             </div>
         </div>
         <div class="bubble-extra"></div>
@@ -692,7 +696,7 @@
     <!-- Contact Section -->
     <section id="contact" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
-            <h2 class="text-3xl font-bold text-center mb-6 text-white">Get in Touch</h2>
+            <h2 class="text-3xl font-bold text-center mb-6 text-white section-title" data-section="#contact">Get in Touch</h2>
             <p class="text-gray-300 text-center mb-12 max-w-2xl mx-auto">
                 I’d love to hear from you! Whether you have a project in mind, a question, or just want to connect, feel free to fill out the form below or follow me on my socials: 
                 <a href="https://instagram.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">Instagram</a>, 
@@ -853,6 +857,15 @@
         navbarName.addEventListener('click', (e) => {
             e.preventDefault();
             document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        const sectionTitles = document.querySelectorAll('.section-title');
+        sectionTitles.forEach(title => {
+            title.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = title.getAttribute('data-section');
+                document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
+            });
         });
 
         const projectLinks = document.querySelectorAll('.view-project');
