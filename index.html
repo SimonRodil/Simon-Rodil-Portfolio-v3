@@ -7,11 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- youtube-background CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/youtube-background/1.0.8/jquery.youtube-background.min.js"></script>
-    <!-- GSAP CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
         body {
@@ -82,6 +79,11 @@
         .input-with-icon input {
             padding-left: 40px;
         }
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
         .skill-item {
             display: flex;
             align-items: center;
@@ -136,6 +138,18 @@
         .skill-item:hover[data-skill="shopify"] span { color: #96bf48; }
         .skill-item:hover[data-skill="bootstrap"] { background-color: #ffffff; }
         .skill-item:hover[data-skill="bootstrap"] span { color: #7952b3; }
+        @media (max-width: 1040px) {
+            .skill-grid {
+                display: block;
+            }
+            .skill-item {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            .skill-item.col-span-2 {
+                width: 100%;
+            }
+        }
         .first-paragraph::first-letter {
             font-size: 2.5rem;
             font-weight: 700;
@@ -144,7 +158,6 @@
             margin-right: 0.5rem;
             line-height: 1;
         }
-        /* Desktop Menu Hover Animation */
         .nav-link {
             position: relative;
             padding-bottom: 4px;
@@ -167,7 +180,6 @@
         .nav-link:hover {
             color: #ffffff;
         }
-        /* Navbar Fix */
         nav {
             position: fixed;
             top: 0;
@@ -178,7 +190,6 @@
             margin: 0;
             padding: 0;
         }
-        /* Mobile Menu Animation - Only Apply on Mobile */
         #mobile-menu {
             transition: transform 0.3s ease-in-out;
         }
@@ -195,7 +206,6 @@
                 transform: none;
             }
         }
-        /* Next Section Links */
         .next-section-link {
             position: relative;
             display: inline-block;
@@ -219,7 +229,6 @@
         .next-section-link:hover {
             color: #ffffff;
         }
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -268,14 +277,142 @@
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        /* Skills Stacking on Mobile */
-        @media (max-width: 767px) {
-            .skill-grid {
-                grid-template-columns: 1fr; /* Stack skills in one column */
+        /* Bubble Animation - Desktop Only */
+        @media (min-width: 1025px) { /* Disable on tablets (1024px and below) */
+            .bubble-bg {
+                position: relative;
+                overflow: hidden;
             }
-            .skill-item.col-span-2 {
-                grid-column: auto; /* Reset col-span on mobile */
+            .bubble-bg::before,
+            .bubble-bg::after {
+                content: '';
+                position: absolute;
+                width: 300px; /* Larger size */
+                height: 300px;
+                border-radius: 50%;
+                opacity: 0;
+                z-index: 0;
+                animation: bubbleFade 10s ease-in-out infinite; /* Faster */
             }
+            .bubble-bg::before {
+                top: 10%;
+                left: 5%;
+                animation-delay: 0s;
+            }
+            .bubble-bg::after {
+                bottom: 20%;
+                right: 10%;
+                animation-delay: 3s;
+            }
+            .bubble-bg > * {
+                position: relative;
+                z-index: 1;
+            }
+            @keyframes bubbleFade {
+                0% { opacity: 0; transform: scale(0.5) translateY(80px); }
+                50% { opacity: 0.6; transform: scale(1.8) translateY(0); } /* More noticeable */
+                100% { opacity: 0; transform: scale(2.5) translateY(-80px); }
+            }
+            .bubble-bg .bubble-extra {
+                content: '';
+                position: absolute;
+                width: 250px; /* Larger size */
+                height: 250px;
+                border-radius: 50%;
+                opacity: 0;
+                top: 40%;
+                left: 60%;
+                animation: bubbleFade 14s ease-in-out infinite 2s;
+                z-index: 0;
+            }
+            #about {
+                background: #02010f;
+            }
+            #about::before {
+                background: radial-gradient(circle, rgba(2, 1, 23, 0.6), transparent);
+            }
+            #about::after {
+                background: radial-gradient(circle, rgba(3, 2, 23, 0.5), transparent);
+            }
+            #about .bubble-extra {
+                background: radial-gradient(circle, rgba(6, 5, 36, 0.45), transparent);
+            }
+            #projects {
+                background: #111124;
+            }
+            #projects::before {
+                background: radial-gradient(circle, rgba(3, 2, 23, 0.6), transparent);
+            }
+            #projects::after {
+                background: radial-gradient(circle, rgba(4, 4, 18, 0.5), transparent);
+            }
+            #projects .bubble-extra {
+                background: radial-gradient(circle, rgba(2, 1, 23, 0.45), transparent);
+            }
+            #testimonials {
+                background: #0c1529;
+            }
+            #testimonials::before {
+                background: radial-gradient(circle, rgba(6, 5, 36, 0.6), transparent);
+            }
+            #testimonials::after {
+                background: radial-gradient(circle, rgba(2, 1, 23, 0.5), transparent);
+            }
+            #testimonials .bubble-extra {
+                background: radial-gradient(circle, rgba(4, 4, 18, 0.45), transparent);
+            }
+            #contact {
+                background: #02010f;
+            }
+            #contact::before {
+                background: radial-gradient(circle, rgba(4, 4, 18, 0.6), transparent);
+            }
+            #contact::after {
+                background: radial-gradient(circle, rgba(6, 5, 36, 0.5), transparent);
+            }
+            #contact .bubble-extra {
+                background: radial-gradient(circle, rgba(3, 2, 23, 0.45), transparent);
+            }
+            footer {
+                background: #111124;
+            }
+            footer::before {
+                background: radial-gradient(circle, rgba(2, 1, 23, 0.6), transparent);
+            }
+            footer::after {
+                background: radial-gradient(circle, rgba(3, 2, 23, 0.5), transparent);
+            }
+            footer .bubble-extra {
+                background: radial-gradient(circle, rgba(6, 5, 36, 0.45), transparent);
+            }
+        }
+        /* Form Validation Styles */
+        .input-error {
+            border: 2px solid #ef4444;
+            animation: shake 0.3s ease;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        .form-submitting {
+            opacity: 0.5;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #ffffff;
+            opacity: 0;
+        }
+        .success-message i {
+            font-size: 3rem;
+            color: #10b981;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -284,11 +421,9 @@
     <nav class="bg-gray-900 shadow-lg">
         <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
             <h1 class="text-2xl font-bold text-white">Simon</h1>
-            <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
                 <i id="menu-icon" class="fas fa-bars text-2xl transition-transform duration-300"></i>
             </button>
-            <!-- Desktop & Mobile Menu -->
             <div id="mobile-menu" class="hidden md:flex md:items-center space-x-6 absolute md:static top-16 left-0 w-full md:w-auto bg-gray-900 md:bg-transparent p-4 md:p-0">
                 <a href="#home" class="block md:inline-block text-gray-300 hover:text-white transition-colors nav-link py-2 md:py-0">Home</a>
                 <a href="#about" class="block md:inline-block text-gray-300 hover:text-white transition-colors nav-link py-2 md:py-0">About</a>
@@ -299,7 +434,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section with YouTube Video and Fallback -->
+    <!-- Hero Section -->
     <section id="home" class="min-h-screen flex flex-col justify-center pt-16" data-vbg="https://www.youtube.com/watch?v=8Mghi6dT8qQ">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center fade-in content">
             <div class="md:w-1/2 text-center md:text-left">
@@ -323,7 +458,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 bg-gray-900">
+    <section id="about" class="py-24 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-12 text-white">About Me</h2>
             <div class="grid md:grid-cols-2 gap-12">
@@ -355,7 +490,7 @@
                     <div class="space-y-10">
                         <div>
                             <h4 class="text-2xl font-semibold text-gray-300 mb-6">Frontend</h4>
-                            <div class="skill-grid grid grid-cols-2 gap-6">
+                            <div class="skill-grid">
                                 <div class="skill-item" data-skill="html">
                                     <i class="fab fa-html5"></i>
                                     <span>HTML</span>
@@ -380,7 +515,7 @@
                         </div>
                         <div>
                             <h4 class="text-2xl font-semibold text-gray-300 mb-6">Backend</h4>
-                            <div class="skill-grid grid grid-cols-2 gap-6">
+                            <div class="skill-grid">
                                 <div class="skill-item" data-skill="php">
                                     <i class="fab fa-php"></i>
                                     <span>PHP</span>
@@ -410,10 +545,11 @@
                 <a href="#projects" class="next-section-link text-lg">Explore my creations?</a>
             </div>
         </div>
+        <div class="bubble-extra"></div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-gray-950">
+    <section id="projects" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-12 text-white">Projects</h2>
             <div class="grid md:grid-cols-3 gap-8">
@@ -446,14 +582,14 @@
                 <a href="#testimonials" class="next-section-link text-lg">Hear what others think?</a>
             </div>
         </div>
+        <div class="bubble-extra"></div>
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 bg-gray-800">
+    <section id="testimonials" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-12 text-white">Testimonials</h2>
             <div class="space-y-8">
-                <!-- First Row -->
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
                         <div class="flex items-center mb-4">
@@ -484,7 +620,6 @@
                         </blockquote>
                     </div>
                 </div>
-                <!-- Second Row -->
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
                         <div class="flex items-center mb-4">
@@ -520,10 +655,11 @@
                 <a href="#contact" class="next-section-link text-lg">Ready to collaborate?</a>
             </div>
         </div>
+        <div class="bubble-extra"></div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-900">
+    <section id="contact" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-6 text-white">Get in Touch</h2>
             <p class="text-gray-300 text-center mb-12 max-w-2xl mx-auto">
@@ -533,27 +669,33 @@
                 <a href="https://github.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">GitHub</a>, or 
                 <a href="https://linkedin.com/in/simonrodil" target="_blank" class="text-gray-200 hover:text-white">LinkedIn</a>.
             </p>
-            <form class="max-w-lg mx-auto">
+            <form id="contact-form" class="max-w-lg mx-auto">
                 <div class="mb-6 input-with-icon">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Name" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+                    <input type="text" id="name" name="name" placeholder="Name" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
                 </div>
                 <div class="mb-6 input-with-icon">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Email" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+                    <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
                 </div>
                 <div class="mb-6">
-                    <textarea placeholder="Message" rows="4" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200"></textarea>
+                    <textarea id="message" name="message" placeholder="Message" rows="4" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover">
+                <button type="submit" id="submit-btn" class="w-full bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover">
                     <i class="fas fa-paper-plane mr-2"></i>Send Message
                 </button>
             </form>
+            <div id="success-message" class="success-message max-w-lg mx-auto">
+                <i class="fas fa-check-circle"></i>
+                <h3 class="text-2xl font-bold mb-2">Fantastic!</h3>
+                <p class="text-gray-300">Your message has been successfully sent! I’ll reach out to you soon via email, so please keep an eye on your inbox (and maybe your spam folder, just in case)!</p>
+            </div>
         </div>
+        <div class="bubble-extra"></div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-950 py-6">
+    <footer class="bubble-bg py-6">
         <div class="max-w-6xl mx-auto px-4 text-center text-gray-400 fade-in">
             <p>© 2025 Simon. All rights reserved.</p>
             <div class="mt-2 space-x-6">
@@ -563,6 +705,7 @@
                 <a href="https://linkedin.com/in/simonrodil" target="_blank" class="hover:text-white scale-hover"><i class="fab fa-linkedin"></i></a>
             </div>
         </div>
+        <div class="bubble-extra"></div>
     </footer>
 
     <!-- Modals -->
@@ -598,7 +741,6 @@
     </div>
 
     <script>
-        // YouTube Video with Fallback
         jQuery(document).ready(function($) {
             if (typeof $.fn.YTPlayer === 'undefined') {
                 console.error('YTPlayer plugin failed to load. Using static image fallback.');
@@ -619,7 +761,6 @@
             }
         });
 
-        // Mobile Menu Toggle with Animation
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
@@ -640,20 +781,8 @@
             }
         });
 
-        // GSAP Animations for "Hello, I'm Simon"
-        gsap.from("#hello", { 
-            opacity: 0, 
-            y: -50, 
-            duration: 1, 
-            ease: "power2.out" 
-        });
-        gsap.from("#im", { 
-            opacity: 0, 
-            y: -50, 
-            duration: 1, 
-            delay: 0.3, 
-            ease: "power2.out" 
-        });
+        gsap.from("#hello", { opacity: 0, y: -50, duration: 1, ease: "power2.out" });
+        gsap.from("#im", { opacity: 0, y: -50, duration: 1, delay: 0.3, ease: "power2.out" });
         gsap.from("#simon", { 
             opacity: 0, 
             y: -50, 
@@ -661,17 +790,10 @@
             delay: 0.6, 
             ease: "power2.out",
             onComplete: () => {
-                gsap.to("#simon", { 
-                    scale: 1.1, 
-                    duration: 0.5, 
-                    yoyo: true, 
-                    repeat: 1,
-                    ease: "power1.inOut" 
-                });
+                gsap.to("#simon", { scale: 1.1, duration: 0.5, yoyo: true, repeat: 1, ease: "power1.inOut" });
             }
         });
 
-        // Fade-in Observer
         const elements = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -682,13 +804,10 @@
         }, { threshold: 0.1 });
         elements.forEach(element => observer.observe(element));
 
-        // Smooth Scroll with Mobile Menu Close
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
                 if (!mobileMenu.classList.contains('md:flex') && isOpen) {
                     isOpen = false;
                     mobileMenu.classList.remove('open');
@@ -699,7 +818,6 @@
             });
         });
 
-        // Modal Functionality
         const projectLinks = document.querySelectorAll('.view-project');
         const modals = document.querySelectorAll('.modal');
         const closeButtons = document.querySelectorAll('.modal-close');
@@ -726,6 +844,60 @@
                     modal.style.display = 'none';
                 }
             });
+        });
+
+        // Contact Form Validation and Submission
+        const form = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const submitBtn = document.getElementById('submit-btn');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Reset any previous error states
+            [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('input-error'));
+
+            // Validation
+            let isValid = true;
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('input-error');
+                isValid = false;
+            }
+            if (!emailInput.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                emailInput.classList.add('input-error');
+                isValid = false;
+            }
+            if (!messageInput.value.trim()) {
+                messageInput.classList.add('input-error');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Submission Animation
+            form.classList.add('form-submitting');
+
+            // Simulate form submission (replace with actual API call if needed)
+            setTimeout(() => {
+                // Fade out inputs one by one
+                gsap.to([nameInput, emailInput, messageInput, submitBtn], {
+                    opacity: 0,
+                    duration: 0.5,
+                    stagger: 0.2,
+                    onComplete: () => {
+                        form.style.display = 'none';
+                        successMessage.style.display = 'block';
+                        gsap.to(successMessage, {
+                            opacity: 1,
+                            duration: 0.5,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+            }, 1000); // Simulated delay
         });
     </script>
 </body>
