@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/youtube-background/1.0.8/jquery.youtube-background.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -66,6 +65,26 @@
             position: relative;
             z-index: 1;
         }
+        /* Typing Animation Styles */
+        .typing-container {
+            display: inline-block;
+            position: relative;
+        }
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #ffffff;
+            animation: typing 2s steps(30, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #ffffff; }
+        }
         .input-with-icon {
             position: relative;
         }
@@ -90,7 +109,13 @@
             padding: 1.25rem;
             background: #1f2937;
             border-radius: 0.75rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.6s ease-out, transform 0.6s ease-out;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .skill-item.animate-in {
+            opacity: 1;
+            transform: translateY(0);
         }
         .skill-item:hover {
             transform: translateY(-5px);
@@ -143,6 +168,10 @@
         .skill-item:hover[data-skill="shopify"] span { color: #96bf48; }
         .skill-item:hover[data-skill="bootstrap"] { background-color: #ffffff; }
         .skill-item:hover[data-skill="bootstrap"] span { color: #7952b3; }
+        .skill-item:nth-child(2) { transition-delay: 0.1s; }
+        .skill-item:nth-child(3) { transition-delay: 0.2s; }
+        .skill-item:nth-child(4) { transition-delay: 0.3s; }
+        .skill-item:nth-child(5) { transition-delay: 0.4s; }
         @media (max-width: 1040px) {
             .skill-grid {
                 display: block;
@@ -247,7 +276,7 @@
         .next-section-link::after {
             content: '';
             position: absolute;
-            width: 10px; /* Initial dash width */
+            width: 10px;
             height: 2px;
             bottom: 0;
             left: 50%;
@@ -373,7 +402,7 @@
             #projects::before { background: radial-gradient(circle, rgba(3, 2, 23, 0.6), transparent); }
             #projects::after { background: radial-gradient(circle, rgba(4, 4, 18, 0.5), transparent); }
             #projects .bubble-extra { background: radial-gradient(circle, rgba(2, 1, 23, 0.45), transparent); }
-            #testimonials { background: #0c1529; }
+            #testimonials { background: #080c1a; }
             #testimonials::before { background: radial-gradient(circle, rgba(6, 5, 36, 0.6), transparent); }
             #testimonials::after { background: radial-gradient(circle, rgba(2, 1, 23, 0.5), transparent); }
             #testimonials .bubble-extra { background: radial-gradient(circle, rgba(4, 4, 18, 0.45), transparent); }
@@ -427,6 +456,10 @@
             text-align: center;
             color: #ffffff;
             opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+        .success-message.visible {
+            opacity: 1;
         }
         .success-message i {
             font-size: 3rem;
@@ -475,15 +508,110 @@
             color: #54b3d6;
             transform: scale(1.05) rotate(2deg);
         }
-        /* Mobile-Specific Styles */
+        .testimonial-box {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .testimonial-left {
+            transform: translateX(-100px);
+        }
+        .testimonial-right {
+            transform: translateX(100px);
+        }
+        .testimonial-box.animate-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .testimonial-left:nth-child(2) { transition-delay: 0.2s; }
+        .testimonial-right:nth-child(2) { transition-delay: 0.2s; }
+        .form-field {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .form-field.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .form-field:nth-child(2) { transition-delay: 0.2s; }
+        .form-field:nth-child(3) { transition-delay: 0.4s; }
+        .form-field:nth-child(4) { transition-delay: 0.6s; }
+        /* Project Card Animations */
+        .project-card {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .project-card.animate-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .project-card:nth-child(1) { transition-delay: 0s; }
+        .project-card:nth-child(2) { transition-delay: 0.2s; }
+        .project-card:nth-child(3) { transition-delay: 0.4s; }
+        /* Stats Section Styles */
+        #stats {
+            background: transparent; /* Blend with Projects section */
+            padding: 3rem 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .stat-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .stat-item.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stat-item:nth-child(1) { transition-delay: 0s; }
+        .stat-item:nth-child(2) { transition-delay: 0.2s; }
+        .stat-item:nth-child(3) { transition-delay: 0.4s; }
+        .stat-item:nth-child(4) { transition-delay: 0.6s; }
+        .stat-item i {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+        .stat-item p {
+            font-size: 1rem;
+            color: #d1d5db;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -1rem;
+            width: 1px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+        }
         @media (max-width: 767px) {
-            /* Section Backgrounds */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
             #about { background: #02010f; }
             #projects { background: #0a0b1a; }
-            #testimonials { background: #0c1529; }
+            #testimonials { background: #080c1a; }
             #contact { background: #02010f; }
             footer { background: #0a0b1a; }
-            /* Modal Stacking */
             .modal-content {
                 flex-direction: column;
             }
@@ -496,24 +624,20 @@
                 flex: none;
                 width: 100%;
             }
-            /* Hero Background Fix */
             #home {
                 background-attachment: scroll;
             }
-            /* Profile Picture Size */
             #home img {
                 width: 224px;
                 height: 224px;
             }
         }
-        /* Body overflow when modal is open */
         body.modal-open {
             overflow: hidden;
         }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100">
-    <!-- Navigation -->
     <nav class="bg-gray-900 shadow-lg">
         <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
             <h1 class="text-2xl font-bold text-white navbar-name" id="navbar-name">Simon</h1>
@@ -530,12 +654,11 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="min-h-screen flex flex-col justify-center pt-16" data-vbg="https://www.youtube.com/watch?v=8Mghi6dT8qQ">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center fade-in content">
             <div class="md:w-1/2 text-center md:text-left">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">
-                    <span id="hello">Hello</span>, <span id="im">I'm</span> <span id="simon">Simon</span>
+                    <span id="hello">Hello</span>, <span class="typing-container"><span id="im" class="typing-text">I'm Simon Rodil</span></span>
                 </h1>
                 <p class="text-xl text-gray-300 mb-6"><i class="fas fa-laptop-code mr-2"></i>Web Developer & Designer</p>
             </div>
@@ -550,7 +673,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="py-24 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-12 text-white section-title" data-section="#about">About Me</h2>
@@ -560,16 +682,13 @@
                         I am a dedicated professional with a degree in Informatics Engineering. My passion lies in crafting innovative digital solutions, and I bring a wealth of experience across multiple domains of technology.
                     </p>
                     <p class="text-gray-300 leading-relaxed">
-                        My background spans web development, email development, database development, and domain & hosting setup. I thrive on turning complex challenges into seamless, user-friendly experiences.
+                        My background spans web development, email development, database development, and domain & hosting setup, with a knack for turning complex challenges into seamless, user-friendly experiences; as an email developer, I create responsive, customized templates for platforms like Klaviyo, Braze, and Iterable, ensuring optimal delivery and engagement.
                     </p>
                     <p class="text-gray-300 leading-relaxed">
-                        I also work as an email developer, creating responsive and customized templates for email campaigns. I’ve built effective solutions for various platforms, including Klaviyo, Braze, and Iterable, ensuring optimal delivery and engagement.
+                        I craft responsive, dynamic interfaces on the frontend using HTML, CSS, JavaScript, Liquid, and frameworks like jQuery, Bootstrap, and Materialize, while on the backend, I build robust, scalable systems with PHP, Laravel, SQL, and CMS platforms like WordPress and Shopify, delivering tailored solutions for diverse needs.
                     </p>
                     <p class="text-gray-300 leading-relaxed">
-                        I’m proficient in a variety of programming languages, including HTML, CSS, JavaScript, Liquid, PHP, Blade, and SQL. On the frontend, I leverage frameworks and libraries like jQuery, Bootstrap, and Materialize to create responsive and dynamic interfaces.
-                    </p>
-                    <p class="text-gray-300 leading-relaxed">
-                        In the backend realm, I work with PHP, Laravel, and SQL to build robust and scalable systems. Additionally, I have extensive experience with CMS platforms such as WordPress and Shopify, enabling me to deliver tailored solutions for diverse needs.
+                        I’ve worked on a variety of email campaigns and flows—automated sequences designed to keep customers engaged—developing them on platforms like Braze, Klaviyo, HubSpot, and Mailchimp to drive interaction and retention.
                     </p>
                     <p class="text-gray-300 leading-relaxed">
                         As a plus, I handle design tools like Photoshop and Figma with a solid understanding. These skills enhance my ability to create visually appealing and well-structured designs that complement my development work.
@@ -614,7 +733,7 @@
                                     <span>PHP</span>
                                 </div>
                                 <div class="skill-item" data-skill="sql">
-                                    <i class="fab fa-database"></i>
+                                    <i class="fas fa-database"></i>
                                     <span>SQL</span>
                                 </div>
                                 <div class="skill-item" data-skill="laravel">
@@ -641,12 +760,11 @@
         <div class="bubble-extra"></div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-12 text-white section-title" data-section="#projects">Projects</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover">
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover project-card">
                     <div class="h-48 bg-gray-800"></div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 text-white">Project One</h3>
@@ -654,7 +772,7 @@
                         <a href="#" class="text-gray-300 hover:text-white view-project" data-modal="modal1"><i class="fas fa-eye mr-2"></i>View Project</a>
                     </div>
                 </div>
-                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover">
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover project-card">
                     <div class="h-48 bg-gray-800"></div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 text-white">Project Two</h3>
@@ -662,12 +780,37 @@
                         <a href="#" class="text-gray-300 hover:text-white view-project" data-modal="modal2"><i class="fas fa-eye mr-2"></i>View Project</a>
                     </div>
                 </div>
-                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover">
+                <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg scale-hover project-card">
                     <div class="h-48 bg-gray-800"></div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 text-white">Project Three</h3>
                         <p class="text-gray-400 mb-4">A brief description of your project goes here.</p>
                         <a href="#" class="text-gray-300 hover:text-white view-project" data-modal="modal3"><i class="fas fa-eye mr-2"></i>View Project</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Stats Section -->
+            <div id="stats" class="mt-12">
+                <div class="max-w-6xl mx-auto px-4 stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-ruler-combined"></i>
+                        <h3 data-target="15">0</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <h3 data-target="12">0</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-coffee"></i>
+                        <h3 data-target="150">0</h3>
+                        <p>Coffee Cups</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <h3 data-target="7200">0</h3>
+                        <p>Hours</p>
                     </div>
                 </div>
             </div>
@@ -678,13 +821,12 @@
         <div class="bubble-extra"></div>
     </section>
 
-    <!-- Testimonials Section -->
     <section id="testimonials" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-12 text-white section-title" data-section="#testimonials">Testimonials</h2>
             <div class="space-y-8">
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg testimonial-box testimonial-left">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-gray-600 rounded-full mr-4"></div>
                             <div>
@@ -698,7 +840,7 @@
                             <i class="fas fa-quote-right ml-2 text-gray-500"></i>
                         </blockquote>
                     </div>
-                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg testimonial-box testimonial-right">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-gray-600 rounded-full mr-4"></div>
                             <div>
@@ -714,7 +856,7 @@
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg testimonial-box testimonial-left">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-gray-600 rounded-full mr-4"></div>
                             <div>
@@ -728,7 +870,7 @@
                             <i class="fas fa-quote-right ml-2 text-gray-500"></i>
                         </blockquote>
                     </div>
-                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg testimonial-box testimonial-right">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-gray-600 rounded-full mr-4"></div>
                             <div>
@@ -751,7 +893,6 @@
         <div class="bubble-extra"></div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-20 bubble-bg">
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-6 text-white section-title" data-section="#contact">Get in Touch</h2>
@@ -763,18 +904,18 @@
                 <a href="https://linkedin.com/in/simonrodil" target="_blank" class="text-gray-200 hover:text-white">LinkedIn</a>.
             </p>
             <form id="contact-form" class="max-w-lg mx-auto">
-                <div class="mb-6 input-with-icon">
+                <div class="mb-6 input-with-icon form-field">
                     <i class="fas fa-user"></i>
                     <input type="text" id="name" name="name" placeholder="Name" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
                 </div>
-                <div class="mb-6 input-with-icon">
+                <div class="mb-6 input-with-icon form-field">
                     <i class="fas fa-envelope"></i>
                     <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
                 </div>
-                <div class="mb-6">
+                <div class="mb-6 form-field">
                     <textarea id="message" name="message" placeholder="Message" rows="4" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200"></textarea>
                 </div>
-                <button type="submit" id="submit-btn" class="w-full bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover flex items-center justify-center">
+                <button type="submit" id="submit-btn" class="w-full bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover flex items-center justify-center form-field">
                     <span class="spinner"></span>
                     <span class="original-text"><i class="fas fa-paper-plane mr-2"></i>Send Message</span>
                 </button>
@@ -788,7 +929,6 @@
         <div class="bubble-extra"></div>
     </section>
 
-    <!-- Footer -->
     <footer class="bubble-bg py-6">
         <div class="max-w-6xl mx-auto px-4 text-center text-gray-400 fade-in">
             <p>© 2025 Simon. All rights reserved.</p>
@@ -802,7 +942,6 @@
         <div class="bubble-extra"></div>
     </footer>
 
-    <!-- Modals -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <span class="modal-close">×</span>
@@ -876,28 +1015,15 @@
             }
         });
 
-        gsap.from("#hello", { opacity: 0, y: -50, duration: 1, ease: "power2.out" });
-        gsap.from("#im", { opacity: 0, y: -50, duration: 1, delay: 0.3, ease: "power2.out" });
-        gsap.from("#simon", { 
-            opacity: 0, 
-            y: -50, 
-            duration: 1, 
-            delay: 0.6, 
-            ease: "power2.out",
-            onComplete: () => {
-                gsap.to("#simon", { scale: 1.1, duration: 0.5, yoyo: true, repeat: 1, ease: "power1.inOut" });
-            }
-        });
-
-        const elements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
         }, { threshold: 0.1 });
-        elements.forEach(element => observer.observe(element));
+        fadeElements.forEach(element => fadeObserver.observe(element));
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -958,6 +1084,44 @@
             });
         });
 
+        // Scroll Animations with Intersection Observer
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+
+                    // Start counter animation for stats numbers
+                    if (entry.target.classList.contains('stat-item')) {
+                        const numberElement = entry.target.querySelector('h3');
+                        const target = parseInt(numberElement.getAttribute('data-target'));
+                        let count = 0;
+                        const duration = 2000; // 2 seconds
+                        const increment = target / (duration / 16); // 60 FPS
+
+                        const updateCounter = () => {
+                            count += increment;
+                            if (count >= target) {
+                                numberElement.textContent = target;
+                            } else {
+                                numberElement.textContent = Math.ceil(count);
+                                requestAnimationFrame(updateCounter);
+                            }
+                        };
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10% 0px'
+        });
+
+        document.querySelectorAll('.testimonial-box').forEach(box => scrollObserver.observe(box));
+        document.querySelectorAll('.skill-item').forEach(item => scrollObserver.observe(item));
+        document.querySelectorAll('.form-field').forEach(field => scrollObserver.observe(field));
+        document.querySelectorAll('.project-card').forEach(card => scrollObserver.observe(card));
+        document.querySelectorAll('.stat-item').forEach(stat => scrollObserver.observe(stat));
+
         const form = document.getElementById('contact-form');
         const nameInput = document.getElementById('name');
         const emailInput = document.getElementById('email');
@@ -991,20 +1155,9 @@
 
             setTimeout(() => {
                 submitBtn.classList.remove('loading');
-                gsap.to([nameInput, emailInput, messageInput, submitBtn], {
-                    opacity: 0,
-                    duration: 0.5,
-                    stagger: 0.2,
-                    onComplete: () => {
-                        form.style.display = 'none';
-                        successMessage.style.display = 'block';
-                        gsap.to(successMessage, {
-                            opacity: 1,
-                            duration: 0.5,
-                            ease: 'power2.out'
-                        });
-                    }
-                });
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                successMessage.classList.add('visible');
             }, 1000);
         });
     </script>
