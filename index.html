@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/youtube-background/1.0.8/jquery.youtube-background.min.js"></script>
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -37,19 +36,6 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-        }
-        #home .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        #home .video-background iframe {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
         }
         #home::before {
             content: '';
@@ -497,9 +483,9 @@
             height: 100%;
         }
         .social-link.instagram:hover::before { background: #f28c38; }
-        .social-link.facebook:hover::before { background: #1877f2; }
         .social-link.github:hover::before { background: #9146ff; }
         .social-link.linkedin:hover::before { background: #0a66c2; }
+        .social-link.devto:hover::before { background: #000000; }
         .navbar-name {
             cursor: pointer;
             transition: all 0.3s ease;
@@ -600,6 +586,63 @@
             height: 100%;
             background: rgba(255, 255, 255, 0.3);
         }
+        /* Social Media List Styles */
+        .social-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .social-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem; /* Increased spacing between items */
+            transition: transform 0.3s ease;
+        }
+        .social-list li:hover {
+            transform: translateX(5px);
+        }
+        .social-list i {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            color: #ffffff !important; /* Explicitly set to white with !important */
+        }
+        .social-list a {
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .social-list a:hover {
+            color: #54b3d6;
+        }
+        .social-list .username {
+            font-size: 10px;
+            color: #6b7280; /* Dark gray */
+            margin-left: 0.25rem;
+        }
+        /* Contact Section Layout */
+        @media (min-width: 768px) {
+            #contact .contact-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                align-items: start;
+                position: relative;
+            }
+            #contact .contact-grid::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 1px;
+                height: 80%;
+                background-color: #4b5563; /* Dark gray */
+            }
+            .social-list-container {
+                margin-left: 30px; /* Added separation from the divider */
+            }
+        }
         @media (max-width: 767px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -631,6 +674,25 @@
                 width: 224px;
                 height: 224px;
             }
+            /* Stack form and social list on mobile */
+            #contact .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            #contact .contact-grid::before {
+                display: none; /* Hide divider on mobile */
+            }
+            .social-list-container {
+                margin-top: 2rem;
+                text-align: center;
+                margin-left: 0; /* Reset margin on mobile */
+            }
+        }
+        /* Subheadings for Contact Section */
+        .form-title, .social-title {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         body.modal-open {
             overflow: hidden;
@@ -654,13 +716,13 @@
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen flex flex-col justify-center pt-16" data-vbg="https://www.youtube.com/watch?v=8Mghi6dT8qQ">
+    <section id="home" class="min-h-screen flex flex-col justify-center pt-16">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center fade-in content">
             <div class="md:w-1/2 text-center md:text-left">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">
-                    <span id="hello">Hello</span>, <span class="typing-container"><span id="im" class="typing-text">I'm Simon Rodil</span></span>
+                    <span id="hello">Hello</span>, <span class="typing-container"><span class="typing-text">I'm Simon Rodil</span></span>
                 </h1>
-                <p class="text-xl text-gray-300 mb-6"><i class="fas fa-laptop-code mr-2"></i>Web Developer & Designer</p>
+                <p class="text-xl text-gray-300 mb-6"><i class="fas fa-laptop-code mr-2"></i>Web Developer & Email Marketing Specialist</p>
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0">
                 <img src="images/picture.jpeg" 
@@ -897,29 +959,55 @@
         <div class="max-w-6xl mx-auto px-4 fade-in">
             <h2 class="text-3xl font-bold text-center mb-6 text-white section-title" data-section="#contact">Get in Touch</h2>
             <p class="text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-                I’d love to hear from you! Whether you have a project in mind, a question, or just want to connect, feel free to fill out the form below or follow me on my socials: 
-                <a href="https://instagram.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">Instagram</a>, 
-                <a href="https://facebook.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">Facebook</a>, 
-                <a href="https://github.com/simonrodil" target="_blank" class="text-gray-200 hover:text-white">GitHub</a>, or 
-                <a href="https://linkedin.com/in/simonrodil" target="_blank" class="text-gray-200 hover:text-white">LinkedIn</a>.
+                I’d love to hear from you! Whether you have a project in mind, a question, or just want to connect, feel free to fill out the form below or reach out via my socials.
             </p>
-            <form id="contact-form" class="max-w-lg mx-auto">
-                <div class="mb-6 input-with-icon form-field">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="name" name="name" placeholder="Name" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+            <div class="contact-grid">
+                <div>
+                    <h3 class="form-title">Send Me a Message</h3>
+                    <form id="contact-form" class="max-w-lg">
+                        <div class="mb-6 input-with-icon form-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" name="name" placeholder="Name" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+                        </div>
+                        <div class="mb-6 input-with-icon form-field">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+                        </div>
+                        <div class="mb-6 form-field">
+                            <textarea id="message" name="message" placeholder="Message" rows="4" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200"></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="w-full bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover flex items-center justify-center form-field">
+                            <span class="spinner"></span>
+                            <span class="original-text"><i class="fas fa-paper-plane mr-2"></i>Send Message</span>
+                        </button>
+                    </form>
                 </div>
-                <div class="mb-6 input-with-icon form-field">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" name="email" placeholder="Email" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200">
+                <div class="social-list-container">
+                    <h3 class="social-title">Or We Can Connect…</h3>
+                    <ul class="social-list">
+                        <li>
+                            <i class="fab fa-instagram"></i>
+                            <a href="https://instagram.com/simonrodil" target="_blank">Instagram</a>
+                            <span class="username">(/simonrodil)</span>
+                        </li>
+                        <li>
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com/simonrodil" target="_blank">GitHub</a>
+                            <span class="username">(/simonrodil)</span>
+                        </li>
+                        <li>
+                            <i class="fab fa-linkedin"></i>
+                            <a href="https://linkedin.com/in/simonrodil" target="_blank">LinkedIn</a>
+                            <span class="username">(/simonrodil)</span>
+                        </li>
+                        <li>
+                            <i class="fab fa-dev"></i>
+                            <a href="https://dev.to/simonrodil" target="_blank">Dev.to</a>
+                            <span class="username">(/simonrodil)</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="mb-6 form-field">
-                    <textarea id="message" name="message" placeholder="Message" rows="4" required class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-700 text-gray-200"></textarea>
-                </div>
-                <button type="submit" id="submit-btn" class="w-full bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-semibold text-white transition-colors scale-hover flex items-center justify-center form-field">
-                    <span class="spinner"></span>
-                    <span class="original-text"><i class="fas fa-paper-plane mr-2"></i>Send Message</span>
-                </button>
-            </form>
+            </div>
             <div id="success-message" class="success-message max-w-lg mx-auto">
                 <i class="fas fa-check-circle"></i>
                 <h3 class="text-2xl font-bold mb-2">Fantastic!</h3>
@@ -934,9 +1022,9 @@
             <p>© 2025 Simon. All rights reserved.</p>
             <div class="mt-2 space-x-6">
                 <a href="https://instagram.com/simonrodil" target="_blank" class="social-link instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://facebook.com/simonrodil" target="_blank" class="social-link facebook"><i class="fab fa-facebook"></i></a>
                 <a href="https://github.com/simonrodil" target="_blank" class="social-link github"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/simonrodil" target="_blank" class="social-link linkedin"><i class="fab fa-linkedin"></i></a>
+                <a href="https://dev.to/simonrodil" target="_blank" class="social-link devto"><i class="fab fa-dev"></i></a>
             </div>
         </div>
         <div class="bubble-extra"></div>
@@ -975,190 +1063,172 @@
 
     <script>
         jQuery(document).ready(function($) {
-            if (typeof $.fn.YTPlayer === 'undefined') {
-                console.error('YTPlayer plugin failed to load. Using static image fallback.');
-            } else {
-                $('#home').YTPlayer({
-                    videoURL: 'https://www.youtube.com/watch?v=8Mghi6dT8qQ',
-                    containment: '#home',
-                    autoPlay: true,
-                    mute: true,
-                    startAt: 0,
-                    opacity: 1,
-                    showControls: false,
-                    playOnlyIfVisible: false,
-                    onError: function() {
-                        console.error('YouTube video failed to load or play. Using static image fallback.');
-                    }
-                });
-            }
-        });
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const navbarName = document.getElementById('navbar-name');
+            let isOpen = false;
 
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const navbarName = document.getElementById('navbar-name');
-        let isOpen = false;
-
-        mobileMenuButton.addEventListener('click', () => {
-            isOpen = !isOpen;
-            if (isOpen) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('open');
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-times');
-            } else {
-                mobileMenu.classList.remove('open');
-                setTimeout(() => mobileMenu.classList.add('hidden'), 300);
-                menuIcon.classList.remove('fa-times');
-                menuIcon.classList.add('fa-bars');
-            }
-        });
-
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        fadeElements.forEach(element => fadeObserver.observe(element));
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-                if (!mobileMenu.classList.contains('md:flex') && isOpen) {
-                    isOpen = false;
+            mobileMenuButton.addEventListener('click', () => {
+                isOpen = !isOpen;
+                if (isOpen) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('open');
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                } else {
                     mobileMenu.classList.remove('open');
                     setTimeout(() => mobileMenu.classList.add('hidden'), 300);
                     menuIcon.classList.remove('fa-times');
                     menuIcon.classList.add('fa-bars');
                 }
             });
-        });
 
-        navbarName.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
-        });
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            fadeElements.forEach(element => fadeObserver.observe(element));
 
-        const sectionTitles = document.querySelectorAll('.section-title');
-        sectionTitles.forEach(title => {
-            title.addEventListener('click', (e) => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                    if (!mobileMenu.classList.contains('md:flex') && isOpen) {
+                        isOpen = false;
+                        mobileMenu.classList.remove('open');
+                        setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                });
+            });
+
+            navbarName.addEventListener('click', (e) => {
                 e.preventDefault();
-                const sectionId = title.getAttribute('data-section');
-                document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
             });
-        });
 
-        const projectLinks = document.querySelectorAll('.view-project');
-        const modals = document.querySelectorAll('.modal');
-        const closeButtons = document.querySelectorAll('.modal-close');
-
-        projectLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const modalId = link.getAttribute('data-modal');
-                const modal = document.getElementById(modalId);
-                modal.style.display = 'flex';
-                document.body.classList.add('modal-open');
+            const sectionTitles = document.querySelectorAll('.section-title');
+            sectionTitles.forEach(title => {
+                title.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = title.getAttribute('data-section');
+                    document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
+                });
             });
-        });
 
-        closeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const modal = button.closest('.modal');
-                modal.style.display = 'none';
-                document.body.classList.remove('modal-open');
+            const projectLinks = document.querySelectorAll('.view-project');
+            const modals = document.querySelectorAll('.modal');
+            const closeButtons = document.querySelectorAll('.modal-close');
+
+            projectLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const modalId = link.getAttribute('data-modal');
+                    const modal = document.getElementById(modalId);
+                    modal.style.display = 'flex';
+                    document.body.classList.add('modal-open');
+                });
             });
-        });
 
-        window.addEventListener('click', (e) => {
-            modals.forEach(modal => {
-                if (e.target === modal) {
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
                     modal.style.display = 'none';
                     document.body.classList.remove('modal-open');
-                }
+                });
             });
-        });
 
-        // Scroll Animations with Intersection Observer
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-
-                    // Start counter animation for stats numbers
-                    if (entry.target.classList.contains('stat-item')) {
-                        const numberElement = entry.target.querySelector('h3');
-                        const target = parseInt(numberElement.getAttribute('data-target'));
-                        let count = 0;
-                        const duration = 2000; // 2 seconds
-                        const increment = target / (duration / 16); // 60 FPS
-
-                        const updateCounter = () => {
-                            count += increment;
-                            if (count >= target) {
-                                numberElement.textContent = target;
-                            } else {
-                                numberElement.textContent = Math.ceil(count);
-                                requestAnimationFrame(updateCounter);
-                            }
-                        };
-                        requestAnimationFrame(updateCounter);
+            window.addEventListener('click', (e) => {
+                modals.forEach(modal => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        document.body.classList.remove('modal-open');
                     }
-                }
+                });
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -10% 0px'
-        });
 
-        document.querySelectorAll('.testimonial-box').forEach(box => scrollObserver.observe(box));
-        document.querySelectorAll('.skill-item').forEach(item => scrollObserver.observe(item));
-        document.querySelectorAll('.form-field').forEach(field => scrollObserver.observe(field));
-        document.querySelectorAll('.project-card').forEach(card => scrollObserver.observe(card));
-        document.querySelectorAll('.stat-item').forEach(stat => scrollObserver.observe(stat));
+            // Scroll Animations with Intersection Observer
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
 
-        const form = document.getElementById('contact-form');
-        const nameInput = document.getElementById('name');
-        const emailInput = document.getElementById('email');
-        const messageInput = document.getElementById('message');
-        const submitBtn = document.getElementById('submit-btn');
-        const successMessage = document.getElementById('success-message');
+                        // Start counter animation for stats numbers
+                        if (entry.target.classList.contains('stat-item')) {
+                            const numberElement = entry.target.querySelector('h3');
+                            const target = parseInt(numberElement.getAttribute('data-target'));
+                            let count = 0;
+                            const duration = 2000; // 2 seconds
+                            const increment = target / (duration / 16); // 60 FPS
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
+                            const updateCounter = () => {
+                                count += increment;
+                                if (count >= target) {
+                                    numberElement.textContent = target;
+                                } else {
+                                    numberElement.textContent = Math.ceil(count);
+                                    requestAnimationFrame(updateCounter);
+                                }
+                            };
+                            requestAnimationFrame(updateCounter);
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -10% 0px'
+            });
 
-            [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('input-error'));
+            document.querySelectorAll('.testimonial-box').forEach(box => scrollObserver.observe(box));
+            document.querySelectorAll('.skill-item').forEach(item => scrollObserver.observe(item));
+            document.querySelectorAll('.form-field').forEach(field => scrollObserver.observe(field));
+            document.querySelectorAll('.project-card').forEach(card => scrollObserver.observe(card));
+            document.querySelectorAll('.stat-item').forEach(stat => scrollObserver.observe(stat));
 
-            let isValid = true;
-            if (!nameInput.value.trim()) {
-                nameInput.classList.add('input-error');
-                isValid = false;
-            }
-            if (!emailInput.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
-                emailInput.classList.add('input-error');
-                isValid = false;
-            }
-            if (!messageInput.value.trim()) {
-                messageInput.classList.add('input-error');
-                isValid = false;
-            }
+            const form = document.getElementById('contact-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const submitBtn = document.getElementById('submit-btn');
+            const successMessage = document.getElementById('success-message');
 
-            if (!isValid) return;
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
 
-            form.classList.add('form-submitting');
-            submitBtn.classList.add('loading');
+                [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('input-error'));
 
-            setTimeout(() => {
-                submitBtn.classList.remove('loading');
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
-                successMessage.classList.add('visible');
-            }, 1000);
+                let isValid = true;
+                if (!nameInput.value.trim()) {
+                    nameInput.classList.add('input-error');
+                    isValid = false;
+                }
+                if (!emailInput.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+                if (!messageInput.value.trim()) {
+                    messageInput.classList.add('input-error');
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+                form.classList.add('form-submitting');
+                submitBtn.classList.add('loading');
+
+                setTimeout(() => {
+                    submitBtn.classList.remove('loading');
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    successMessage.classList.add('visible');
+                }, 1000);
+            });
         });
     </script>
 </body>
